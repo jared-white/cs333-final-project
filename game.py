@@ -16,20 +16,18 @@ class Game:
         else:
             self.current_player = self.player1;
 
-    def play(self):
-        while not self.board.full_board():
+    def play(self, col):
+        if self.board.full_board():
+            return "Draw"
+        if col > 6 or col < 0:
+            print("That move is not valid. Please try again!")
+            return False
+        if self.board.drop_piece(col, self.current_player.piece) is None:
+            print("This column is full! Please select a different column")
+            return False
+        if self.board.check_win(self.current_player.piece):
             self.board.print_board()
-            print("=== {}'s Turn ===".format(self.current_player.name))
-            col = int(input("Please enter the column (1-7) you drop a piece in: ")) - 1
-            if col > 6 or col < 0:
-                print("That move is not valid. Please try again!")
-                continue
-            if not self.board.drop_piece(col, self.current_player.piece):
-                print("This column is full! Please select a different column")
-                continue
-            if self.board.check_win(self.current_player.piece):
-                self.board.print_board()
-                print("{} wins!".format(self.current_player.name))
-                break
-            self.change_player()
-            print("Draw!")
+            print("{} wins!".format(self.current_player.name))
+            return "Win"
+        self.board.print_board()
+        self.change_player()

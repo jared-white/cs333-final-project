@@ -7,8 +7,14 @@ def main():
     name1 = input("Player 1: ")
     name2 = input("Player 2: ")
     game = Game(name1, name2)
-    game.play()
-    play_again()
+    while True:
+        print("=== {}'s Turn ===".format(game.current_player.name))
+        col = int(input("Please enter the column (1-7) you drop a piece in: ")) - 1
+        result = game.play(col)
+        if result == "Draw":
+            break
+        if result == "Win":
+            break
 
 def play_again():
     print("\n=== PLAY AGAIN? ===")
