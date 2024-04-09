@@ -11,11 +11,13 @@ def main():
         print("=== {}'s Turn ===".format(game.current_player.name))
         col = int(input("Please enter the column (1-7) you drop a piece in: ")) - 1
         result = game.play(col)
+        # Break the while loop if either game over condition is met
         if result == "Draw":
             break
         if result == "Win":
             break
 
+# Play again function
 def play_again():
     print("\n=== PLAY AGAIN? ===")
     print("Would you like to play again or quit the game?")
