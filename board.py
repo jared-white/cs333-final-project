@@ -39,19 +39,19 @@ class Board:
     def check_win(self, piece):
         # Check rows for win condition
         for row in range(self.rows):
-            for col in range(self.cols - 3):
+            for col in range(self.cols - 3): # Ensures the loop does not check columns out of bounds
                 if np.all(self.board[row, col:col+4] == piece):
                     return True
 
         # Check columns for win condition
         for col in range(self.cols):
-            for row in range(self.rows - 3):
+            for row in range(self.rows - 3): # Ensures the loop does not check rows out of bounds
                 if np.all(self.board[row:row+4, col] == piece):
                     return True
 
         # Check diagonals for win condition
-        for row in range(self.rows - 3):
-            for col in range(self.cols - 3):
+        for row in range(self.rows - 3): # Ensures rows out of bounds are not checked
+            for col in range(self.cols - 3): # Ensures columns out of bounds are not checked
                 if np.all(self.board[row:row+4, col:col+4].diagonal() == piece):
                     return True
                 if np.all(np.fliplr(self.board[row:row+4, col:col+4]).diagonal() == piece):

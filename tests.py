@@ -72,10 +72,21 @@ class TestConnectFourClass(unittest.TestCase):
 
     # Tests that the Board and Player objects are properly created within the Game class
     # Therefore, they should exist
+    # Integration test
     def test_game_initalization(self):
         self.assertIsNotNone(self.test_game.board)
         self.assertIsNotNone(self.test_game.player1)
         self.assertIsNotNone(self.test_game.player2)
+
+    # Tests that the Game will properly place the piece on the Board
+    # Integration test
+    def test_player_move(self):
+        self.assertEqual(str(self.test_game.board), str(self.test_board)) # Assert empty
+        
+        self.test_game.play(0)
+        self.test_board.drop_piece(0, '●') # This is what test_game is expected to do
+
+        np.testing.assert_array_equal(self.test_game.board.board, self.test_board.board)
 
     # Tests that the player cannot make a move in a column that's out of bounds and that the game recognizes this
     def test_out_of_bounds_move(self):
@@ -89,6 +100,7 @@ class TestConnectFourClass(unittest.TestCase):
         self.assertFalse(result)
 
     # Tests that the Game sees and properly returns when a win condition is met
+    # Integration test
     def test_win_condition(self):
         self.test_game.board.drop_piece(0, '●')
         self.test_game.board.drop_piece(1, '●')
@@ -98,6 +110,7 @@ class TestConnectFourClass(unittest.TestCase):
 
     # Tests draw condition => the board is full
     # Purposefully overrides the win condition
+    # Integration test
     def test_draw_condition(self):
         for col in range(self.test_game.board.cols):
             for _ in range(self.test_game.board.rows):
@@ -105,13 +118,20 @@ class TestConnectFourClass(unittest.TestCase):
         result = self.test_game.play(0)
         self.assertEqual(result, 'Draw')
 
-    # Tests that the Game change_player() swaps Player objects
-    def test_player_change(self):
+    # Tests that change_player() swaps Player objects
+    def test_change_player(self):
         current_player1 = self.test_game.current_player
         self.test_game.change_player()
         current_player2 = self.test_game.current_player
         self.assertNotEqual(current_player1, current_player2)
 
-# Tests
+    # Tests that the Game appropriately swaps players
+    # Integration test
+    def test_player_switch(self):
+        current_player1 = self.test_game.current_player
+        self.test_game.play(0)
+        current_player2 = self.test_game.current_player
+        self.assertNotEqual(current_player1, current_player2)
+
 if __name__ == "__main__":
     unittest.main()
