@@ -52,8 +52,10 @@ class Board:
         # Check diagonals for win condition
         for row in range(self.rows - 3): # Ensures rows out of bounds are not checked
             for col in range(self.cols - 3): # Ensures columns out of bounds are not checked
+                # Checks one diagonal
                 if np.all(self.board[row:row+4, col:col+4].diagonal() == piece):
                     return True
+                # Checks the opposite diagonal
                 if np.all(np.fliplr(self.board[row:row+4, col:col+4]).diagonal() == piece):
                     return True
 
