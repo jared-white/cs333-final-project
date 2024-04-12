@@ -16,6 +16,7 @@ def main():
             break
         if result == "Win":
             break
+    play_again()
 
 # Play again function
 def play_again():
