@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build -t jaredmwhite/cs333-final-project:final
+      run: docker build -t jaredmwhite/cs333-final-project:final .
   
 
     - name: Login to Docker
